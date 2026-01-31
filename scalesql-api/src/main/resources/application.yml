@@ -1,0 +1,57 @@
+# Spring Boot 配置
+spring:
+  application:
+    name: scalesql-api
+
+  # 数据源配置（用于存储 Schema 元数据）
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/scalesql
+    username: postgres
+    password: postgres
+
+# Hologres 配置
+hologres:
+  url: jdbc:postgresql://your-hologres-endpoint:80/your_database
+  username: your_username
+  password: your_password
+  driver-class-name: org.postgresql.Driver
+  initial-size: 5
+  min-idle: 5
+  max-active: 20
+  max-wait: 60000
+
+# LLM 配置
+llm:
+  api-key: ${OPENAI_API_KEY:your-api-key}
+  base-url: https://api.openai.com
+  model: gpt-3.5-turbo
+  timeout: 60
+
+# 嵌入模型配置
+embedding:
+  model:
+    path: models/all-MiniLM-L6-v2.onnx
+    dimension: 384
+
+# MyBatis-Plus 配置
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  type-aliases-package: com.agentar.scalesql.data.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+
+# 服务器配置
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+# 日志配置
+logging:
+  level:
+    root: INFO
+    com.agentar.scalesql: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
